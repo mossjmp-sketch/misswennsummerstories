@@ -100,28 +100,47 @@ input[type="text"]:focus {
     background: rgba(51, 255, 51, 0.05);
 }
 
-/* File Upload Styles */
-.file-line {
+/* Checkbox Styles */
+.checkbox-line {
     margin-top: 30px;
     margin-bottom: 30px;
+    align-items: center;
 }
 
-.file-input {
-    display: none;
-}
-
-.file-label {
-    cursor: pointer;
+.term-checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: transparent;
+    margin: 0;
+    font: inherit;
+    color: currentColor;
+    width: 20px;
+    height: 20px;
     border: 1px solid var(--term-color);
-    padding: 4px 10px;
-    background: rgba(51, 255, 51, 0.1);
-    transition: all 0.2s;
+    display: grid;
+    place-content: center;
+    cursor: pointer;
+    margin-right: 12px;
 }
 
-.file-label:hover {
-    background: var(--term-color);
-    color: var(--term-bg);
-    text-shadow: none;
+.term-checkbox::before {
+    content: "";
+    width: 12px;
+    height: 12px;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em var(--term-color);
+    background-color: var(--term-color);
+}
+
+.term-checkbox:checked::before {
+    transform: scale(1);
+}
+
+.term-checkbox-label {
+    cursor: pointer;
+    color: var(--term-color);
+    text-shadow: var(--term-glow);
 }
 
 /* Button */

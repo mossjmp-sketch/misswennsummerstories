@@ -4,8 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const successArea = document.getElementById('success-area');
     const form = document.getElementById('architect-form');
     const btnSubmit = document.getElementById('btn-submit');
-    const fileInput = document.getElementById('snapshot');
-    const fileLabel = document.getElementById('file-label-text');
 
     // Terminal Boot Sequence Text
     const lines = [
@@ -16,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         "[OK]",
         "",
         "Welcome, Operative.",
-        "Please enter your designation and upload your verified snapshot log to proceed."
+        "Please enter your designation and verify your quest completion to proceed."
     ];
 
     let currentLine = 0;
@@ -48,19 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Start boot sequence
     setTimeout(typeWriter, 500);
-
-    // Handle File Input Change
-    fileInput.addEventListener('change', (e) => {
-        if (e.target.files.length > 0) {
-            fileLabel.innerText = `[FILE SELECTED: ${e.target.files[0].name.toUpperCase()}]`;
-            fileLabel.style.background = 'var(--term-color)';
-            fileLabel.style.color = 'var(--term-bg)';
-        } else {
-            fileLabel.innerText = '[SELECT FILE]';
-            fileLabel.style.background = 'rgba(51, 255, 51, 0.1)';
-            fileLabel.style.color = 'var(--term-color)';
-        }
-    });
 
     // Handle form submission
     form.addEventListener('submit', async (e) => {

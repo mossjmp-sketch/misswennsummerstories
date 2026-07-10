@@ -29,9 +29,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const formData = new FormData(form);
         const formValues = Object.fromEntries(formData.entries());
         
-        // Form Validation: If they click submit, they should provide at least an email
+        // Form Validation: If they click submit, they should provide at least a valid email
         const errorDiv = document.getElementById('form-error');
-        if (!emailInput.trim()) {
+        const errorSpan = errorDiv.querySelector('span');
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        
+        if (!emailInput.trim() || !emailRegex.test(emailInput)) {
+            if (!emailInput.trim()) {
+                errorSpan.innerText = "Please provide an email to subscribe, or click 'Skip & Download' to proceed directly.";
+            } else {
+                errorSpan.innerText = "Please enter a valid email address.";
+            }
             errorDiv.classList.remove('hidden');
             setTimeout(() => errorDiv.classList.add('visible'), 10);
             return;
