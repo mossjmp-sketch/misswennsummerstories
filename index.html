@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ms Wenn Summer Stories - Complimentary Downloads</title>
+    <meta name="description" content="Download complimentary materials like the Quest Journal and Stamp Stickers for the Ms Wenn's Summer Stories books.">
+    
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-mesh"></div>
+    
+    <main class="container">
+        <div class="glass-card">
+            <header class="header">
+                <h1>Unlock Your Complimentary Materials</h1>
+                <p>Enhance your reading experience with our exclusive Quest Journal and Stamp Stickers for the Ms Wenn's Summer Stories series.</p>
+            </header>
+
+            <!-- Form Section -->
+            <section id="form-section" class="active">
+                <form id="reader-form" action="https://formspree.io/f/xykqrldy" method="POST">
+                    <div class="input-group">
+                        <label for="email">Email Address <span class="optional">(Optional)</span></label>
+                        <input type="email" id="email" name="email" placeholder="you@example.com">
+                    </div>
+                    <div class="input-group">
+                        <label for="age">Reader's Age <span class="optional">(Optional)</span></label>
+                        <input type="number" id="age" name="age" placeholder="e.g., 8" min="1" max="100">
+                    </div>
+                    <div class="button-group">
+                        <button type="submit" class="btn btn-primary" id="btn-submit">Continue to Downloads</button>
+                        <button type="button" class="btn btn-text" id="btn-skip">Skip & Download</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Download Section (Hidden by default) -->
+            <section id="download-section" class="hidden">
+                <div class="success-message">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="check-icon"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <h2>You're all set!</h2>
+                    <p>Your complimentary PDFs are ready for download.</p>
+                </div>
+                
+                <div class="download-links">
+                    <a href="Miss Wren's Summer Stories - Quest Journal.pdf" download class="btn btn-download">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        Download Quest Journal
+                    </a>
+                    <a href="Miss Wren's Summer Stories - Stamp Stickers.pdf" download class="btn btn-download">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        Download Stamp Stickers
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
