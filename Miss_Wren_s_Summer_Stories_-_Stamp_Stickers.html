@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Miss Wren's Summer Stories - Stamp Stickers</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 12mm;
+        }
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Georgia', serif;
+            color: #212529;
+            margin: 0;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            page-break-inside: avoid;
+            break-inside: avoid;
+            page-break-after: avoid;
+            break-after: avoid;
+        }
+        .header h1 {
+            color: #1b4332;
+            font-size: 22pt;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 0 0 5px 0;
+        }
+        .header p {
+            font-family: 'Courier New', monospace;
+            font-size: 10pt;
+            color: #555;
+            margin: 0;
+        }
+        
+        /* Grid to hold the landscape stickers */
+        .sticker-sheet {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 15px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* The outer dashed line for cutting */
+        .cut-line-wrapper {
+            border: 1.5px dashed #adb5bd;
+            padding: 8px;
+            background-color: #ffffff;
+            width: 236px; /* 220px + 16px padding */
+            height: 141px; /* 125px + 16px padding */
+            box-sizing: border-box;
+            page-break-inside: avoid;
+            break-inside: avoid;
+            margin: 0 auto;
+        }
+
+        /* The exact 220x125 Landscape Stamp Card */
+        .stamp-card {
+            border: 2.5px solid #1b4332;
+            border-radius: 8px;
+            background-color: #fdfcf7;
+            width: 220px;
+            height: 125px;
+            display: flex;
+            flex-direction: row; /* Horizontal alignment */
+            align-items: center;
+            padding: 8px 10px;
+            box-sizing: border-box;
+            background-image: radial-gradient(#e9ecef 1px, transparent 1px);
+            background-size: 10px 10px;
+            gap: 12px;
+            overflow: hidden;
+        }
+
+        /* Icon Badge Container (Left Side) */
+        .icon-container {
+            width: 70px;
+            height: 70px;
+            flex-shrink: 0;
+            background: #ffffff;
+            border: 2px solid #38b000;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 45px; /* Scales the native icons */
+            box-shadow: 0 3px 6px rgba(0,0,0,0.08);
+            position: relative;
+        }
+        
+        /* Inner ring for the badge */
+     
+
+        /* Text Container (Right Side) */
+        .text-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex-grow: 1;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #e9ecef;
+            height: 100%;
+        }
+        .stamp-title {
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            font-size: 9pt;
+            color: #1b4332;
+            text-transform: uppercase;
+            margin: 0 0 4px 0;
+            line-height: 1.1;
+        }
+        .stamp-motto {
+            font-style: italic;
+            font-size: 8pt;
+            color: #4a5568;
+            margin: 0;
+            line-height: 1.25;
+        }
+
+        /* Special Styling for the Final Door Seal */
+        .gold-tier {
+            border-color: #d4af37;
+            background-color: #fffdf5;
+        }
+        .gold-tier .icon-container {
+            border-color: #d4af37;
+        }
+        .gold-tier .stamp-title {
+            color: #b8860b;
+        }
+
+        @media print {
+            body { background-color: #ffffff; padding: 0; }
+            .cut-line-wrapper { box-shadow: none; border-color: #ced4da; }
+            .icon-container { box-shadow: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Codex Stamp Inventory</h1>
+    </div>
+
+    <div class="sticker-sheet">
+
+        <div class="cut-line-wrapper">
+            <div class="stamp-card">
+                <div class="icon-container">🥁</div>
+                <div class="text-container">
+                    <div class="stamp-title">The Drum Seal</div>
+                    <div class="stamp-motto">"I listen before I run."</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cut-line-wrapper">
+            <div class="stamp-card">
+                <div class="icon-container">🌉</div>
+                <div class="text-container">
+                    <div class="stamp-title">The Crossing Seal</div>
+                    <div class="stamp-motto">"I know what I don't know."</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cut-line-wrapper">
+            <div class="stamp-card">
+                <div class="icon-container">🌱</div>
+                <div class="text-container">
+                    <div class="stamp-title">The Season Seal</div>
+                    <div class="stamp-motto">"I plant before I harvest."</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cut-line-wrapper">
+            <div class="stamp-card">
+                <div class="icon-container">🌊</div>
+                <div class="text-container">
+                    <div class="stamp-title">The River Seal</div>
+                    <div class="stamp-motto">"Real friends never ask me to shrink."</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cut-line-wrapper">
+            <div class="stamp-card">
+                <div class="icon-container">🛖</div>
+                <div class="text-container">
+                    <div class="stamp-title">The Nest Seal</div>
+                    <div class="stamp-motto">"I know where I belong."</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cut-line-wrapper">
+            <div class="stamp-card">
+                <div class="icon-container">🤝</div>
+                <div class="text-container">
+                    <div class="stamp-title">The Debt Seal</div>
+                    <div class="stamp-motto">"I remember who helped me."</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cut-line-wrapper">
+            <div class="stamp-card">
+                <div class="icon-container">📜</div>
+                <div class="text-container">
+                    <div class="stamp-title">The Scroll Seal</div>
+                    <div class="stamp-motto">"I ask why before I fight."</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cut-line-wrapper">
+            <div class="stamp-card">
+                <div class="icon-container">👁️</div>
+                <div class="text-container">
+                    <div class="stamp-title">The Counsel Seal</div>
+                    <div class="stamp-motto">"I question what poisons quietly."</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cut-line-wrapper">
+            <div class="stamp-card">
+                <div class="icon-container">🛡️</div>
+                <div class="text-container">
+                    <div class="stamp-title">The Nest-Guard</div>
+                    <div class="stamp-motto">"Small and patient beats big and careless."</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cut-line-wrapper">
+            <div class="stamp-card">
+                <div class="icon-container">🦴</div>
+                <div class="text-container">
+                    <div class="stamp-title">The Bone Seal</div>
+                    <div class="stamp-motto">"What I have is real. What I want may not be."</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cut-line-wrapper">
+            <div class="stamp-card">
+                <div class="icon-container">🧵</div>
+                <div class="text-container">
+                    <div class="stamp-title">The Loom Seal</div>
+                    <div class="stamp-motto">"I build the dream by building."</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cut-line-wrapper">
+            <div class="stamp-card">
+                <div class="icon-container">🪙</div>
+                <div class="text-container">
+                    <div class="stamp-title">The Gold Seal</div>
+                    <div class="stamp-motto">"Enough is a kind of wealth."</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cut-line-wrapper">
+            <div class="stamp-card">
+                <div class="icon-container">🪞</div>
+                <div class="text-container">
+                    <div class="stamp-title">The Mirror Lake Seal</div>
+                    <div class="stamp-motto">"I think before I leap."</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cut-line-wrapper">
+            <div class="stamp-card">
+                <div class="icon-container">🦀</div>
+                <div class="text-container">
+                    <div class="stamp-title">The Claw Seal</div>
+                    <div class="stamp-motto">"I ask before I trust."</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cut-line-wrapper">
+            <div class="stamp-card">
+                <div class="icon-container">🌙</div>
+                <div class="text-container">
+                    <div class="stamp-title">The Moon Seal</div>
+                    <div class="stamp-motto">"I find the angle others missed."</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cut-line-wrapper">
+            <div class="stamp-card">
+                <div class="icon-container">🎭</div>
+                <div class="text-container">
+                    <div class="stamp-title">The Real Face</div>
+                    <div class="stamp-motto">"My real voice is my best voice."</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cut-line-wrapper">
+            <div class="stamp-card">
+                <div class="icon-container">🌲</div>
+                <div class="text-container">
+                    <div class="stamp-title">The Grove Seal</div>
+                    <div class="stamp-motto">"I value friends who challenge me."</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cut-line-wrapper">
+            <div class="stamp-card">
+                <div class="icon-container">🌟</div>
+                <div class="text-container">
+                    <div class="stamp-title">The Light Seal</div>
+                    <div class="stamp-motto">"I stay. I glow. That is enough."</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cut-line-wrapper">
+            <div class="stamp-card">
+                <div class="icon-container">🦉</div>
+                <div class="text-container">
+                    <div class="stamp-title">The Vigil Seal</div>
+                    <div class="stamp-motto">"I look twice. Every time."</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cut-line-wrapper">
+            <div class="stamp-card">
+                <div class="icon-container">🛶</div>
+                <div class="text-container">
+                    <div class="stamp-title">The Current Seal</div>
+                    <div class="stamp-motto">"I face what is coming."</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cut-line-wrapper">
+            <div class="stamp-card gold-tier">
+                <div class="icon-container">🚪</div>
+                <div class="text-container">
+                    <div class="stamp-title">The Door Seal</div>
+                    <div class="stamp-motto">"I carry what I've learned and pass it forward."</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

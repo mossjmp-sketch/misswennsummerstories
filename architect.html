@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architect Directory | Secure Terminal</title>
+    <meta name="description" content="Secure Check-In">
+    
+    <link rel="stylesheet" href="terminal.css">
+</head>
+<body>
+    <div class="scanlines"></div>
+    <div class="glow"></div>
+    
+    <main class="terminal">
+        <div id="output" class="output">
+            <!-- Typing effect will go here -->
+        </div>
+
+        <div id="interactive-area" class="interactive-area hidden">
+            <!-- Note: enctype="multipart/form-data" is required for Formspree to process file uploads -->
+            <form id="architect-form" action="https://formspree.io/f/mpqgvbap" method="POST" enctype="multipart/form-data">
+                <div class="input-line">
+                    <span class="prompt">OPERATIVE_NAME></span>
+                    <input type="text" id="operative" name="operative" required autocomplete="off" spellcheck="false">
+                </div>
+                
+                <div class="input-line">
+                    <span class="prompt">SECRET_CODE></span>
+                    <input type="text" id="secret_code" name="secret_code" autocomplete="off" spellcheck="false">
+                </div>
+
+                <div class="input-line file-line">
+                    <span class="prompt">UPLOAD_SNAPSHOT></span>
+                    <label for="snapshot" class="file-label" id="file-label-text">[SELECT FILE]</label>
+                    <input type="file" id="snapshot" name="snapshot" accept="image/*" class="file-input">
+                </div>
+
+                <div class="action-line">
+                    <button type="submit" class="btn-terminal" id="btn-submit">[ EXECUTE DATA TRANSFER ]</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="success-area" class="success-area hidden">
+            <div class="glitch" data-text="[ALL DATA LOOPS SECURED]">[ALL DATA LOOPS SECURED]</div>
+            <p>Verification complete. The Architect acknowledges your presence.</p>
+            <div class="congratulations" style="margin-top: 20px;">
+                <p>Excellent work, Operative. You have successfully decrypted the transmission.</p>
+            </div>
+            <div id="certificate-container" style="margin-top: 30px;">
+                <!-- Link added via JS -->
+            </div>
+            <p style="margin-top: 40px; color: var(--term-dim);">Disconnecting...</p>
+        </div>
+    </main>
+
+    <script src="terminal.js"></script>
+</body>
+</html>

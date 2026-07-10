@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Miss Wren's Summer Stories - Quest Journal</title>
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        @page {
+            size: A4;
+            margin: 18mm 14mm;
+            background-color: #fdfcf7;
+            @bottom-right {
+                content: "Page " counter(page);
+                font-family: 'Georgia', serif;
+                font-size: 8pt;
+                color: #666;
+            }
+            @bottom-left {
+                content: "MISS WREN'S SUMMER STORIES — OFFICIAL QUEST JOURNAL";
+                font-family: 'Georgia', serif;
+                font-size: 8pt;
+                font-weight: bold;
+                color: #1b4332;
+            }
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            color: #2d3142;
+            line-height: 1.5;
+            font-size: 10.5pt;
+            background-color: #fdfcf7;
+            -webkit-print-color-adjust: exact;
+            color-adjust: exact;
+        }
+        h1, h2, h3, h4 {
+            color: #1b4332;
+            margin-top: 0;
+            font-weight: bold;
+        }
+        h1 { font-size: 22pt; text-align: center; line-height: 1.2; text-transform: uppercase; letter-spacing: 1px; }
+        h2 { font-size: 14pt; border-bottom: 2px solid #1b4332; padding-bottom: 4px; margin-top: 25px; page-break-after: avoid; break-after: avoid; }
+        h3 { font-size: 11pt; margin-bottom: 5px; color: #2d3142; page-break-after: avoid; break-after: avoid; }
+        
+        .main-title-bar {
+            background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 100%);
+            color: #ffffff;
+            padding: 35px 20px;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+        .main-title-bar h1 { color: #ffffff; margin-bottom: 5px; }
+        .main-title-bar .subtitle { 
+            font-family: 'Courier New', monospace; 
+            font-size: 10.5pt; 
+            color: #d8f3dc; 
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .system-alert {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #212529;
+            color: #a7c957;
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 9pt;
+            margin: 18px 0;
+            border-left: 5px solid #38b000;
+            line-height: 1.4;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+        .system-alert span.warn { color: #f28482; font-weight: bold; }
+        
+        .intro-text {
+            font-size: 11pt;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+        
+        /* Table Layout for Stamp Grids */
+        .stamp-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 12px;
+            margin-top: 10px;
+        }
+        .stamp-table tr {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+        .day-header-row td {
+            background-color: #2d3142;
+            color: #ffffff;
+            padding: 8px 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 9.5pt;
+            font-weight: bold;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            page-break-after: avoid;
+            break-after: avoid;
+        }
+        
+        /* LANDSCAPE RECEPTOR NODES - MATCHES 220x125 RATIO */
+        .stamp-box {
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 12px 10px;
+            text-align: center;
+            vertical-align: top;
+            box-shadow: inset 0 2px 6px rgba(0,0,0,0.03);
+            width: 33%;
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+        .landscape-target {
+            width: 100%;
+            height: 110px; /* Scaled perfectly for A4 3-column width maintaining 220:125 ratio */
+            border: 2px dashed #ced4da;
+            border-radius: 6px;
+            margin: 0 auto 10px auto;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .landscape-target::before {
+            content: "[ EMPTY SLOT ]";
+            font-family: 'Courier New', monospace;
+            font-size: 8.5pt;
+            color: #adb5bd;
+            letter-spacing: 1px;
+        }
+        
+        .stamp-title {
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            color: #1b4332;
+            font-size: 9pt;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+            line-height: 1.1;
+        }
+        .stamp-quote {
+            font-style: italic;
+            font-size: 8pt;
+            color: #555;
+            line-height: 1.3;
+            margin: 0;
+            padding: 0 4px;
+        }
+        
+        /* Gold Tier Door Seal Formatting */
+        .gold-tier-target {
+            border-color: #d4af37;
+            background-color: #fffdf5;
+        }
+        .gold-tier-target::before {
+            color: #d4af37;
+            content: "[ FINAL SLOT ]";
+        }
+        
+        /* Quest Section Layout */
+        .quest-container {
+            margin-bottom: 25px;
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+        .quest-header-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 0;
+        }
+        .quest-header-title {
+            background-color: #1b4332;
+            color: #ffffff;
+            padding: 8px 14px;
+            font-weight: bold;
+            font-size: 11pt;
+            border-top-left-radius: 6px;
+        }
+        .quest-header-meta {
+            background-color: #e9ecef;
+            color: #2d3142;
+            text-align: right;
+            padding: 8px 14px;
+            font-family: 'Courier New', monospace;
+            font-size: 8.5pt;
+            font-weight: bold;
+            border-top-right-radius: 6px;
+            width: 35%;
+        }
+        .quest-body {
+            background-color: #f8f9fa;
+            border-left: 4px solid #1b4332;
+            border-right: 1px solid #e9ecef;
+            border-bottom: 1px solid #e9ecef;
+            border-bottom-left-radius: 6px;
+            border-bottom-right-radius: 6px;
+            padding: 16px;
+            font-size: 10pt;
+        }
+        .quest-prompt {
+            font-weight: bold;
+            color: #2d3142;
+            margin-bottom: 10px;
+        }
+        .day-quest-banner {
+            background-color: #2d3142;
+            color: #ffffff;
+            padding: 8px 14px;
+            font-family: 'Courier New', monospace;
+            font-size: 10pt;
+            font-weight: bold;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 28px 0 10px 0;
+            page-break-inside: avoid;
+            break-inside: avoid;
+            page-break-after: avoid;
+            break-after: avoid;
+        }
+        .day-quest-banner:first-of-type {
+            margin-top: 10px;
+        }
+        .quest-type-tag {
+            font-weight: normal;
+            text-transform: none;
+            letter-spacing: 0;
+            color: #d8f3dc;
+            font-size: 9pt;
+        }
+        
+        .lined-box {
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            padding: 8px 14px;
+            margin-top: 12px;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+        .line {
+            border-bottom: 1px dotted #adb5bd;
+            height: 26px;
+            color: #6c757d;
+            font-family: 'Courier New', monospace;
+            font-size: 9pt;
+            line-height: 26px;
+        }
+        
+        .page-break {
+            page-break-before: always;
+        }
+        
+        .footer-note {
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            font-size: 8.5pt;
+            color: #555;
+            margin-top: 30px;
+            border-top: 1px solid #dee2e6;
+            padding-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-title-bar">
+        <h1>The Codex Quest Journal</h1>
+        <div class="subtitle">System Layer Interface & Real-World Stamp Ledger</div>
+    </div>
+
+    <div class="system-alert">
+        [SYSTEM INITIALIZATION] Welcome, Wayfarer. This file serves as your permanent local cache. <br>
+        [TRACKING ACTIVATED] 7 Books. 21 Stories. 21 System Stamps. Your choices determine your source build.
+    </div>
+
+    <h2>How to Use This Journal</h2>
+    <p class="intro-text">
+        Welcome to the physical interface companion for <strong>Miss Wren's Summer Stories</strong>. As you journey through the Codex each afternoon with Asha, Kofi, Cleo, and Jay, the game engine runs background tasks to monitor your real-world progress. 
+    </p>
+    <p class="intro-text">
+        This printable deployment contains two operational modules:
+    </p>
+    <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px; page-break-inside: avoid; break-inside: avoid;">
+        <tr>
+            <td style="width: 45%; vertical-align: top; background-color: #f1f5f9; padding: 16px; border-radius: 8px; border-left: 5px solid #1b4332; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <h3>Module 01: The Stamp Album</h3>
+                <p style="font-size: 9.5pt; margin: 8px 0 0 0;">
+                    A structural framework holding 21 distinct visual seals. When you finish an afternoon log in the book, review its corresponding stamp criteria here. Mount your physical sticker over the empty slot once the code rules are met.
+                </p>
+            </td>
+            <td style="width: 10%;"></td>
+            <td style="width: 45%; vertical-align: top; background-color: #f1f5f9; padding: 16px; border-radius: 8px; border-left: 5px solid #38b000; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <h3>Module 02: Action Quests</h3>
+                <p style="font-size: 9.5pt; margin: 8px 0 0 0;">
+                    The core rule of the Codex is absolute: <em>The system changes, but the truth does not.</em> Each story features a real-life mission designed to translate digital game mechanics into physical world-building metrics.
+                </p>
+            </td>
+        </tr>
+    </table>
+
+    <div class="system-alert" style="background-color: #eaf4f4; color: #1b4332; border-left: 5px solid #1b4332; box-shadow: none;">
+        <span class="warn" style="color: #1b4332;">ADMINISTRATIVE TIP:</span> Use this journal as an active lead magnet for summer reading tracks. Once a wayfarer logs all three daily seals, their processing speed and comprehension sync levels are fully updated.
+    </div>
+
+    <p style="font-style: italic; text-align: center; margin-top: 40px; color: #6c757d; font-size: 11pt;">
+        "For every kid who ever read the tutorial and then ignored it completely... <br>
+        Your calibration cycle begins on the next page."
+    </p>
+
+    <div class="page-break"></div>
+    <h2>The Master Stamp Album</h2>
+    <p style="font-size: 9.5pt; margin-bottom: 15px; color: #4a5568;">
+        Track your validation status across the first four operational matrix sectors. Verify each slot upon completing the corresponding chapter.
+    </p>
+
+    <table class="stamp-table">
+        <tr class="day-header-row">
+            <td colspan="3">DAY 1: MONDAY // THE BOOK OF COURAGE</td>
+        </tr>
+        <tr>
+            <td class="stamp-box">
+                <div class="landscape-target"></div>
+                <div class="stamp-title">The Drum Seal</div>
+                <div class="stamp-quote">"I listen before I run."</div>
+            </td>
+            <td class="stamp-box">
+                <div class="landscape-target"></div>
+                <div class="stamp-title">The Crossing Seal</div>
+                <div class="stamp-quote">"I know what I don't know."</div>
+            </td>
+            <td class="stamp-box">
+                <div class="landscape-target"></div>
+                <div class="stamp-title">The Season Seal</div>
+                <div class="stamp-quote">"I plant before I harvest."</div>
+            </td>
+        </tr>
+
+        <tr class="day-header-row">
+            <td colspan="3">DAY 2: TUESDAY // THE BOOK OF FRIENDSHIP</td>
+        </tr>
+        <tr>
+            <td class="stamp-box">
+                <div class="landscape-target"></div>
+                <div class="stamp-title">The River Seal</div>
+                <div class="stamp-quote">"Real friends never ask me to shrink."</div>
+            </td>
+            <td class="stamp-box">
+                <div class="landscape-target"></div>
+                <div class="stamp-title">The Nest Seal</div>
+                <div class="stamp-quote">"I know where I belong."</div>
+            </td>
+            <td class="stamp-box">
+                <div class="landscape-target"></div>
+                <div class="stamp-title">The Debt Seal</div>
+                <div class="stamp-quote">"I remember who helped me."</div>
+            </td>
+        </tr>
+
+        <tr class="day-header-row">
+            <td colspan="3">DAY 3: WEDNESDAY // THE BOOK OF RIVALS</td>
+        </tr>
+        <tr>
+            <td class="stamp-box">
+                <div class="landscape-target"></div>
+                <div class="stamp-title">The Scroll Seal</div>
+                <div class="stamp-quote">"I ask why before I fight."</div>
+            </td>
+            <td class="stamp-box">
+                <div class="landscape-target"></div>
+                <div class="stamp-title">The Counsel Seal</div>
+                <div class="stamp-quote">"I question what poisons quietly."</div>
+            </td>
+            <td class="stamp-box">
+                <div class="landscape-target"></div>
+                <div class="stamp-title">The Nest-Guard</div>
+                <div class="stamp-quote">"Small and patient beats big and careless."</div>
+            </td>
+        </tr>
+        </table>
+        <div class="page-break"></div>
+        <table class="stamp-table">
+        <tr class="day-header-row">
+            <td colspan="3">DAY 4: THURSDAY // THE BOOK OF ENOUGH</td>
+        </tr>
+        <tr>
+            <td class="stamp-box">
+                <div class="landscape-target"></div>
+                <div class="stamp-title">The Bone Seal</div>
+                <div class="stamp-quote">"What I have is real. What I want may not be."</div>
+            </td>
+            <td class="stamp-box">
+                <div class="landscape-target"></div>
+                <div class="stamp-title">The Loom Seal</div>
+                <div class="stamp-quote">"I build the dream by building."</div>
+            </td>
+            <td class="stamp-box">
+                <div class="landscape-target"></div>
+                <div class="stamp-title">The Gold Seal</div>
+                <div class="stamp-quote">"Enough is a kind of wealth."</div>
+            </td>
+        </tr>
+        <tr class="day-header-row">
+            <td colspan="3">DAY 5: FRIDAY // THE BOOK OF STRATEGY</td>
+        </tr>
+        <tr>
+            <td class="stamp-box">
+                <div class="landscape-target"></div>
+                <div class="stamp-title">The Mirror Lake Seal</div>
+                <div class="stamp-quote">"I think before I leap."</div>
+            </td>
+            <td class="stamp-box">
+                <div class="landscape-target"></div>
+                <div class="stamp-title">The Claw Seal</div>
+                <div class="stamp-quote">"I ask before I trust."</div>
+            </td>
+            <td class="stamp-box">
+                <div class="landscape-target"></div>
+                <div class="stamp-title">The Moon Seal</div>
+                <div class="stamp-quote">"I find the angle others missed."</div>
+            </td>
+        </tr>
+
+        <tr class="day-header-row">
+            <td colspan="3">DAY 6: SATURDAY // THE BOOK OF IDENTITY</td>
+        </tr>
+        <tr>
+            <td class="stamp-box">
+                <div class="landscape-target"></div>
+                <div class="stamp-title">The Real Face</div>
+                <div class="stamp-quote">"My real voice is my best voice."</div>
+            </td>
+            <td class="stamp-box">
+                <div class="landscape-target"></div>
+                <div class="stamp-title">The Grove Seal</div>
+                <div class="stamp-quote">"I value friends who challenge me."</div>
+            </td>
+            <td class="stamp-box">
+                <div class="landscape-target"></div>
+                <div class="stamp-title">The Light Seal</div>
+                <div class="stamp-quote">"I stay. I glow. That is enough."</div>
+            </td>
+        </tr>
+        </table>
+        <div class="page-break"></div>
+        <table class="stamp-table">
+        <tr class="day-header-row">
+            <td colspan="3">DAY 7: SUNDAY // THE BOOK OF WISDOM</td>
+        </tr>
+        <tr>
+            <td class="stamp-box">
+                <div class="landscape-target"></div>
+                <div class="stamp-title">The Vigil Seal</div>
+                <div class="stamp-quote">"I look twice. Every time."</div>
+            </td>
+            <td class="stamp-box">
+                <div class="landscape-target"></div>
+                <div class="stamp-title">The Current Seal</div>
+                <div class="stamp-quote">"I face what is coming."</div>
+            </td>
+            <td class="stamp-box" style="border: 2px solid #d4af37;">
+                <div class="landscape-target gold-tier-target"></div>
+                <div class="stamp-title" style="color: #b8860b;">The Door Seal</div>
+                <div class="stamp-quote">"I carry what I've learned and pass it forward."</div>
+            </td>
+        </tr>
+    </table>
+
+    <div class="system-alert" style="margin-top: 25px; text-align: center;">
+        [PHONETIC RESONANCE FIELD] Once all 21 blocks display valid validation tags, vocalize the complete cipher string collected from the technical updates: <br><br>
+        <strong style="font-size: 11pt;">"Wrr... + En... + Iss... + Sss... + Muh... + Here... + Now..."</strong>
+    </div>
+
+    <div class="lined-box" style="margin-top: 20px; background-color: #f1f5f9; border-color: #cbd5e1;">
+        <div class="quest-prompt" style="text-align: center; color: #1b4332; margin-bottom: 0;">MASTER CIPHER SYNC NOTEBOOK UNLOCKED: What happens when the loop finishes?</div>
+        <div class="line"></div>
+        <div class="line"></div>
+    </div>
+
+
+    <div class="page-break"></div>
+    <h2>Real-World Action Quest Ledger</h2>
+    <p class="intro-text">
+        Execute these physical tasks in your home, yard, or classroom — always a safe space, with a parent, guardian, or teacher nearby — to balance the Codex core metrics.
+    </p>
+
+    <div class="day-quest-banner">Monday // The Book of Courage</div>
+
+    <div class="quest-container">
+        <table class="quest-header-table">
+            <tr>
+                <td class="quest-header-title">The First Step</td>
+                <td class="quest-header-meta">STAMP 01 · ACTION QUEST</td>
+            </tr>
+        </table>
+        <div class="quest-body">
+            <div class="quest-prompt">
+                Find one thing you have been avoiding because it triggers a Warning Signal. Today, take one step toward it — not the whole climb. Just the first step. Tonight, write down what you found on the other side.
+            </div>
+            <div class="lined-box">
+                <div class="line">What I avoided: </div>
+                <div class="line">The one step I took: </div>
+                <div class="line">What I found on the other side: </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="quest-container">
+        <table class="quest-header-table">
+            <tr>
+                <td class="quest-header-title">Two Different Skills</td>
+                <td class="quest-header-meta">STAMP 02 · MIRROR QUEST</td>
+            </tr>
+        </table>
+        <div class="quest-body">
+            <div class="quest-prompt">
+                Write down one thing you are genuinely skilled at. Now name someone who has a completely different skill. What could they solve that your skill tree cannot? You do not have to ask them yet. Just write it.
+            </div>
+            <div class="lined-box">
+                <div class="line">Something I'm genuinely skilled at: </div>
+                <div class="line">Someone with a completely different skill: </div>
+                <div class="line">What they could solve that I couldn't: </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="quest-container">
+        <table class="quest-header-table">
+            <tr>
+                <td class="quest-header-title">Two Fields</td>
+                <td class="quest-header-meta">STAMP 03 · CREATE QUEST</td>
+            </tr>
+        </table>
+        <div class="quest-body">
+            <div class="quest-prompt">
+                Draw or describe two fields. One where you rushed something. One where you were patient. Write one sentence under each: what did the rush cost, and what did the patience give you?
+            </div>
+            <div class="lined-box">
+                <div class="line">Field one (rushed) — what it cost: </div>
+                <div class="line">Field two (patient) — what it gave: </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="day-quest-banner">Tuesday // The Book of Friendship</div>
+
+    <div class="quest-container">
+        <table class="quest-header-table">
+            <tr>
+                <td class="quest-header-title">Real Friends Don't Ask You to Shrink</td>
+                <td class="quest-header-meta">STAMP 04 · MIRROR QUEST</td>
+            </tr>
+        </table>
+        <div class="quest-body">
+            <div class="quest-prompt">
+                Has anyone ever asked you to shrink yourself to prove you cared about them? You don't have to write what it was. Just write: how did it feel? What would you do differently now?
+            </div>
+            <div class="lined-box">
+                <div class="line">How it felt: </div>
+                <div class="line">What I'd do differently now: </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="quest-container">
+        <table class="quest-header-table">
+            <tr>
+                <td class="quest-header-title">Something They Didn't Ask For</td>
+                <td class="quest-header-meta">STAMP 05 · ACTION QUEST</td>
+            </tr>
+        </table>
+        <div class="quest-body">
+            <div class="quest-prompt">
+                Today, do one thing specifically for the people closest to you — not because they asked, but because you chose to. Notice how it feels different from being asked to do it.
+            </div>
+            <div class="lined-box">
+                <div class="line">What I did, and for whom: </div>
+                <div class="line">How it felt different from being asked: </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="quest-container">
+        <table class="quest-header-table">
+            <tr>
+                <td class="quest-header-title">Three Thank-Yous</td>
+                <td class="quest-header-meta">STAMP 06 · CREATE QUEST</td>
+            </tr>
+        </table>
+        <div class="quest-body">
+            <div class="quest-prompt">
+                Think of three people who did something for you that you never properly thanked. Write one sentence for each — something you could actually say to them. You don't have to say it yet. Just write it like you will.
+            </div>
+            <div class="lined-box">
+                <div class="line">01. </div>
+                <div class="line">02. </div>
+                <div class="line">03. </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="day-quest-banner">Wednesday // The Book of Rivals</div>
+
+    <div class="quest-container">
+        <table class="quest-header-table">
+            <tr>
+                <td class="quest-header-title">Where the Disagreement Started</td>
+                <td class="quest-header-meta">STAMP 07 · MIRROR QUEST</td>
+            </tr>
+        </table>
+        <div class="quest-body">
+            <div class="quest-prompt">
+                Think of a disagreement you have that is still unresolved. Do you actually remember what started it? Write what YOU think started it. Then write honestly: what might they think started it?
+            </div>
+            <div class="lined-box">
+                <div class="line">What I think started it: </div>
+                <div class="line">What they might think started it: </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="quest-container">
+        <table class="quest-header-table">
+            <tr>
+                <td class="quest-header-title">"How Do You Know That?"</td>
+                <td class="quest-header-meta">STAMP 08 · ACTION QUEST</td>
+            </tr>
+        </table>
+        <div class="quest-body">
+            <div class="quest-prompt">
+                Today, if someone says something negative about a person you care about, don't just agree. Ask one question: "How do you know that?" You don't have to argue. Just ask once. Notice what happens.
+            </div>
+            <div class="lined-box">
+                <div class="line">What was said: </div>
+                <div class="line">What happened when I asked: </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="quest-container">
+        <table class="quest-header-table">
+            <tr>
+                <td class="quest-header-title">Your Coalition</td>
+                <td class="quest-header-meta">STAMP 09 · CREATE QUEST</td>
+            </tr>
+        </table>
+        <div class="quest-body">
+            <div class="quest-prompt">
+                Draw or describe your coalition — four people in your life with completely different abilities. What is each one's specific strength? When have you needed all four at once?
+            </div>
+            <div class="lined-box">
+                <div class="line">01. Name / strength: </div>
+                <div class="line">02. Name / strength: </div>
+                <div class="line">03. Name / strength: </div>
+                <div class="line">04. Name / strength: </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="day-quest-banner">Thursday // The Book of Enough</div>
+
+    <div class="quest-container">
+        <table class="quest-header-table">
+            <tr>
+                <td class="quest-header-title">Three Things I Have</td>
+                <td class="quest-header-meta">STAMP 10 · MIRROR QUEST</td>
+            </tr>
+        </table>
+        <div class="quest-body">
+            <div class="quest-prompt">
+                Write down three things you already have — not things you want, things you have — that you sometimes forget to appreciate. Then read the list aloud. That is the whole quest.
+            </div>
+            <div class="lined-box">
+                <div class="line">01. </div>
+                <div class="line">02. </div>
+                <div class="line">03. </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="quest-container">
+        <table class="quest-header-table">
+            <tr>
+                <td class="quest-header-title">Fifteen Minutes on the Real Thing</td>
+                <td class="quest-header-meta">STAMP 11 · ACTION QUEST</td>
+            </tr>
+        </table>
+        <div class="quest-body">
+            <div class="quest-prompt">
+                Name one thing you have been planning but not doing. Set a timer for 15 minutes. Work on the actual thing — not planning it, not thinking about it. The thing itself. See what happens.
+            </div>
+            <div class="lined-box">
+                <div class="line">The thing I've been planning but not doing: </div>
+                <div class="line">What happened in the 15 minutes: </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="quest-container">
+        <table class="quest-header-table">
+            <tr>
+                <td class="quest-header-title">The Cost of Wanting More</td>
+                <td class="quest-header-meta">STAMP 12 · CREATE QUEST</td>
+            </tr>
+        </table>
+        <div class="quest-body">
+            <div class="quest-prompt">
+                Write a two-sentence story where someone loses something by wanting too much of it. Then write two sentences about what "enough" would have looked like.
+            </div>
+            <div class="lined-box">
+                <div class="line">My two-sentence story: </div>
+                <div class="line"></div>
+                <div class="line">What "enough" would have looked like: </div>
+                <div class="line"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="day-quest-banner">Friday // The Book of Strategy</div>
+
+    <div class="quest-container">
+        <table class="quest-header-table">
+            <tr>
+                <td class="quest-header-title">Strong vs. Clever</td>
+                <td class="quest-header-meta">STAMP 13 · MIRROR QUEST</td>
+            </tr>
+        </table>
+        <div class="quest-body">
+            <div class="quest-prompt">
+                Think of a problem you are currently facing. Write down the "strong" solution. Then write the "clever" solution. Which one actually resolves it more completely?
+            </div>
+            <div class="lined-box">
+                <div class="line">The "strong" solution: </div>
+                <div class="line">The "clever" solution: </div>
+                <div class="line">Which one actually resolves it: </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="quest-container">
+        <table class="quest-header-table">
+            <tr>
+                <td class="quest-header-title">One Good Question</td>
+                <td class="quest-header-meta">STAMP 14 · ACTION QUEST</td>
+            </tr>
+        </table>
+        <div class="quest-body">
+            <div class="quest-prompt">
+                Today, when someone tells you something will "definitely" happen — ask one follow-up question. Not to be difficult. To understand. Notice what happens when someone is asked to explain themselves.
+            </div>
+            <div class="lined-box">
+                <div class="line">What they said would "definitely" happen: </div>
+                <div class="line">What happened when I asked: </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="quest-container">
+        <table class="quest-header-table">
+            <tr>
+                <td class="quest-header-title">The Unexpected Angle</td>
+                <td class="quest-header-meta">STAMP 15 · CREATE QUEST</td>
+            </tr>
+        </table>
+        <div class="quest-body">
+            <div class="quest-prompt">
+                Write or draw a scene where someone small solves a large problem — not with strength, not with a lie, but by showing someone a true thing from an unexpected angle. No one gets hurt. No one lies. Only constraint: it must actually work.
+            </div>
+            <div class="landscape-target" style="height: 140px;"></div>
+        </div>
+    </div>
+
+    <div class="day-quest-banner">Saturday // The Book of Identity</div>
+
+    <div class="quest-container">
+        <table class="quest-header-table">
+            <tr>
+                <td class="quest-header-title">The Version Almost Nobody Sees</td>
+                <td class="quest-header-meta">STAMP 16 · MIRROR QUEST</td>
+            </tr>
+        </table>
+        <div class="quest-body">
+            <div class="quest-prompt">
+                Write about a version of yourself you perform for others — not fake, but carefully chosen. Then write about a version almost nobody sees. Name one thing about the private version you could let one person see this week.
+            </div>
+            <div class="lined-box">
+                <div class="line">The version I perform for others: </div>
+                <div class="line">The version almost nobody sees: </div>
+                <div class="line">One thing I could let someone see this week: </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="quest-container">
+        <table class="quest-header-table">
+            <tr>
+                <td class="quest-header-title">A Friend Who Pushes Back</td>
+                <td class="quest-header-meta">STAMP 17 · ACTION QUEST</td>
+            </tr>
+        </table>
+        <div class="quest-body">
+            <div class="quest-prompt">
+                Think of a friend who always agrees with you. This week, share one opinion you are unsure about. See if they push back or ask a question — or just agree again. Real friends make us think, not just feel good.
+            </div>
+            <div class="lined-box">
+                <div class="line">The opinion I shared: </div>
+                <div class="line">What they did: </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="quest-container">
+        <table class="quest-header-table">
+            <tr>
+                <td class="quest-header-title">"I See You"</td>
+                <td class="quest-header-meta">STAMP 18 · CREATE QUEST</td>
+            </tr>
+        </table>
+        <div class="quest-body">
+            <div class="quest-prompt">
+                Think of someone going through something hard. You do not have to fix it. Create something for them — a drawing, a note, a playlist, a meal, anything — that simply says: I see you and I am not going anywhere.
+            </div>
+            <div class="lined-box">
+                <div class="line">Who I made it for: </div>
+                <div class="line">What I made: </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="day-quest-banner">Sunday // The Book of Wisdom</div>
+
+    <div class="quest-container">
+        <table class="quest-header-table">
+            <tr>
+                <td class="quest-header-title">One More Look</td>
+                <td class="quest-header-meta">STAMP 19 · MIRROR QUEST</td>
+            </tr>
+        </table>
+        <div class="quest-body">
+            <div class="quest-prompt">
+                Think of a time you acted quickly and regretted it. You don't have to write the details. Just write: what would you have seen if you had looked one more time? What do you carry from that moment?
+            </div>
+            <div class="lined-box">
+                <div class="line">What I would have seen with one more look: </div>
+                <div class="line">What I carry from that moment: </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="quest-container">
+        <table class="quest-header-table">
+            <tr>
+                <td class="quest-header-title">Naming the Warning</td>
+                <td class="quest-header-meta">STAMP 20 · ACTION QUEST</td>
+            </tr>
+        </table>
+        <div class="quest-body">
+            <div class="quest-prompt">
+                Name one warning in your life — from a person, a pattern, or a feeling — that you have been setting aside. You don't have to solve it today. Just write it down, out loud, honestly. Naming it is the first act of preparation.
+            </div>
+            <div class="lined-box">
+                <div class="line">The warning I've been setting aside: </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="quest-container">
+        <table class="quest-header-table">
+            <tr>
+                <td class="quest-header-title">A Letter to the Next Child</td>
+                <td class="quest-header-meta">STAMP 21 · CREATE QUEST</td>
+            </tr>
+        </table>
+        <div class="quest-body">
+            <div class="quest-prompt">
+                Write a letter to the next child who will sit in Miss Wren's circle after you. You don't know who they are. Tell them one true thing you learned this week — not a lesson, not a moral. Something only you could tell them, from your own experience of these seven days.
+            </div>
+            <div class="lined-box">
+                <div class="line">Dear friend, </div>
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="system-alert" style="background-color: #2d3142; color: #ffffff; text-align: center; border: none; padding: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.2);">
+        <span style="color: #38b000; font-weight: bold; font-size: 11pt; letter-spacing: 1px;">[ALL DATA LOOPS SECURED]</span><br><br>
+        <span style="font-family: 'Georgia', serif; font-size: 10pt;">Have your administrative parental unit snapshot this verified log and visit the Architect directory to check in:</span><br>
+        <strong style="color: #a7c957; font-size: 11pt; display: block; margin-top: 8px;">Visit mossjmp-sketch.github.io/misswennsummerstories</strong>
+    </div>
+
+    <div class="footer-note">
+        MISS WREN'S SUMMER STORIES // SERIES CONFIGURATION DEPLOYMENT COMPLETE <br>
+        MANUSCRIPT BLOCK ARCHITECTURE GENERATED BY J.M.P. MOSS © 2026
+    </div>
+
+</body>
+</html>
