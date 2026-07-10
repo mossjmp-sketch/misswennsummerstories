@@ -27,12 +27,39 @@
             <section id="form-section" class="active">
                 <form id="reader-form" action="https://formspree.io/f/xykqrldy" method="POST">
                     <div class="input-group">
+                        <label for="name">First Name <span class="optional">(Optional)</span></label>
+                        <input type="text" id="name" name="name" placeholder="Your Name">
+                    </div>
+                    <div class="input-group">
                         <label for="email">Email Address <span class="optional">(Optional)</span></label>
                         <input type="email" id="email" name="email" placeholder="you@example.com">
                     </div>
                     <div class="input-group">
                         <label for="age">Reader's Age <span class="optional">(Optional)</span></label>
                         <input type="number" id="age" name="age" placeholder="e.g., 8" min="1" max="100">
+                    </div>
+                    <div class="input-group">
+                        <label for="source">How did you hear about us? <span class="optional">(Optional)</span></label>
+                        <select id="source" name="source">
+                            <option value="" disabled selected>Select an option...</option>
+                            <option value="amazon">Amazon</option>
+                            <option value="bookstore">Bookstore</option>
+                            <option value="social_media">Social Media</option>
+                            <option value="friend">Friend / Family</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="purchased">Have you purchased a Panchatantra book? <span class="optional">(Optional)</span></label>
+                        <select id="purchased" name="purchased">
+                            <option value="" disabled selected>Select an option...</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No, not yet</option>
+                        </select>
+                    </div>
+                    <div class="input-group checkbox-group">
+                        <input type="checkbox" id="newsletter" name="newsletter" value="yes">
+                        <label for="newsletter">Keep me updated on new book releases and events</label>
                     </div>
                     <div class="button-group">
                         <button type="submit" class="btn btn-primary" id="btn-submit">Continue to Downloads</button>
