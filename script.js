@@ -30,9 +30,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const formValues = Object.fromEntries(formData.entries());
         
         // Form Validation: If they click submit, they should provide at least an email
+        const errorDiv = document.getElementById('form-error');
         if (!emailInput.trim()) {
-            alert("Please provide at least your email address to submit, or use the 'Skip & Download' button to proceed directly to your files.");
+            errorDiv.classList.remove('hidden');
+            setTimeout(() => errorDiv.classList.add('visible'), 10);
             return;
+        } else {
+            errorDiv.classList.remove('visible');
+            setTimeout(() => errorDiv.classList.add('hidden'), 300);
         }
         
         // Formspree submission logic
