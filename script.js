@@ -25,15 +25,15 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         
         // Retrieve values
-        const email = document.getElementById('email').value;
-        const age = document.getElementById('age').value;
+        const formData = new FormData(form);
+        const formValues = Object.fromEntries(formData.entries());
         
         // Formspree submission logic
         const action = form.getAttribute('action');
         
         // Only attempt to send if the user has replaced the placeholder ID
         if (action.includes('YOUR_FORM_ID_HERE')) {
-            console.log('Formspree ID not set. Simulating submission for:', { email, age });
+            console.log('Formspree ID not set. Simulating submission for:', formValues);
             showDownloads();
             return;
         }
