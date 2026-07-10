@@ -25,8 +25,15 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         
         // Retrieve values
+        const emailInput = document.getElementById('email').value;
         const formData = new FormData(form);
         const formValues = Object.fromEntries(formData.entries());
+        
+        // Form Validation: If they click submit, they should provide at least an email
+        if (!emailInput.trim()) {
+            alert("Please provide at least your email address to submit, or use the 'Skip & Download' button to proceed directly to your files.");
+            return;
+        }
         
         // Formspree submission logic
         const action = form.getAttribute('action');
